@@ -17,3 +17,6 @@ class Figure(ABC):
         if not isinstance(figure, Figure):
             raise ValueError(f"аргумент {figure} должен быть объектом класса Figure")
         return self.get_area + figure.get_area
+
+
+
