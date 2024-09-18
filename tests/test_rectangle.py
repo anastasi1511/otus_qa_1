@@ -47,9 +47,24 @@ def test_rectangle_add_area_positive(side_a, side_b, add_area):
     "side_a, side_b",
     [
         (0, 0),
+        (-1, -5)
     ],
-    ids=["ноль"]
+    ids=["sides are zero", "sides less than zero"]
 )
-def test_rectangle_negative(side_a, side_b):
-    assert side_a <= 0
-    assert side_b <= 0
+def test_rectangle_sides_negative(side_a, side_b):
+    with pytest.raises(ValueError):
+        Rectangle(side_a, side_b)
+
+
+@pytest.mark.parametrize(
+    "side_a, side_b",
+    [
+        (20, 0)
+    ],
+    ids=["side_b = 0"]
+)
+def test_square_add_area_negative(side_a, side_b):
+    with pytest.raises(ValueError):
+        x = Rectangle(side_a, side_b)
+        y = Square(side_a)
+        x.add_area(y)

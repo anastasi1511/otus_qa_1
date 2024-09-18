@@ -50,9 +50,24 @@ def test_circle_add_area_positive(radius, side_a, add_area):
 @pytest.mark.parametrize(
     "radius",
     [
-        0,
+        0, -1,
     ],
-    ids=["ноль"]
+    ids=["radius=0", "radius<0"]
 )
-def test_circle_negative(radius):
-    assert radius <= 0
+def test_circle_radius_negative(radius):
+    with pytest.raises(ValueError):
+        Circle(radius)
+
+
+@pytest.mark.parametrize(
+    "side_a, radius",
+    [
+        (20, -7)
+    ],
+    ids=["radius < 0"]
+)
+def test_square_add_area_negative(side_a, radius):
+    with pytest.raises(ValueError):
+        x = Circle(radius)
+        y = Square(side_a)
+        x.add_area(y)

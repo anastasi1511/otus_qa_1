@@ -47,9 +47,12 @@ def test_triangle_add_area_positive(side_a, side_b, side_f, radius, add_area):
 @pytest.mark.parametrize(
     "side_a, side_b, side_f",
     [
-        (7, 2, 20),
+        (7, 1, 18),
+        (7, 11, 18)
     ],
-    ids=["cумма сторон"]
+    ids=["the sum of the sides is less than a third", "the sum of the sides is equal to the third"]
 )
-def test_triangle_negative(side_a, side_b, side_f):
-    assert side_a + side_b < side_f
+def test_triangle_sides_negative(side_a, side_b, side_f):
+    with pytest.raises(ValueError):
+        Triangle(side_a, side_b, side_f)
+
