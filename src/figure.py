@@ -13,7 +13,10 @@ class Figure(ABC):
     def get_perimeter(self):
         pass
 
-    def add_area(self, figure):
+    def add_area(self, figure: object) -> object:
         if not isinstance(figure, Figure):
             raise ValueError(f"аргумент {figure} должен быть объектом класса Figure")
         return self.get_area + figure.get_area
+
+
+

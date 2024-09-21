@@ -1,4 +1,4 @@
-from src.Figure import Figure
+from src.figure import Figure
 
 
 class Circle(Figure):
@@ -6,6 +6,7 @@ class Circle(Figure):
         if radius <= 0:
             raise ValueError("Радиус окружности не может быть меньше нуля!")
         self.radius = radius
+
 
     @property
     def get_perimeter(self):
