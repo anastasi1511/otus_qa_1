@@ -60,14 +60,13 @@ def test_circle_radius_negative(radius):
 
 
 @pytest.mark.parametrize(
-    "side_a, radius",
+    "radius, not_figure",
     [
-        (20, -7)
+        (5, 7)
     ],
-    ids=["radius < 0"]
+    ids=["The second object is not figure"]
 )
-def test_square_add_area_negative(side_a, radius):
+def test_square_add_area_negative(radius, not_figure):
+    y = Circle(radius)
     with pytest.raises(ValueError):
-        x = Circle(radius)
-        y = Square(side_a)
-        x.add_area(y)
+        y.add_area(not_figure)

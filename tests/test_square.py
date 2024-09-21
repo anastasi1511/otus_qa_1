@@ -57,14 +57,13 @@ def test_square_side_negative(side_a):
 
 
 @pytest.mark.parametrize(
-    "side_a, side_b",
+    "side_a, not_figure",
     [
-        (0, 7)
+        (20, 7)
     ],
-    ids=["side_a is zero"]
+    ids=["The second object is not figure"]
 )
-def test_square_add_area_negative(side_a, side_b):
+def test_square_add_area_negative(side_a, not_figure):
+    y = Square(side_a)
     with pytest.raises(ValueError):
-        x = Rectangle(side_a, side_b)
-        y = Square(side_a)
-        x.add_area(y)
+        y.add_area(not_figure)
