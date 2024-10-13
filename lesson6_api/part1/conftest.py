@@ -9,13 +9,8 @@ message_in_dog_list = ["afghan", "basset", "blood", "english", "ibizan", "plott"
 def pytest_addoption(parser):
     parser.addoption(
         "--url_dog",
-        default='https://dog.ceo/api/breeds/image/random',
+        default='https://dog.ceo/api',
         help="This is dog url for random"
-    )
-    parser.addoption(
-        "--random_url_wrong1",
-        default="https://dog.ceo/api/breeds/image/rando",
-        help="This is wrong dog url for random"
     )
     parser.addoption(
         "--dog_list_url",
@@ -23,13 +18,8 @@ def pytest_addoption(parser):
         help="This is dog list url"
     )
     parser.addoption(
-        "--dog_list_url_wrong1",
-        default="https://dog.ceo/api/breed/hound/lis",
-        help="This is wrong dog list url"
-    )
-    parser.addoption(
         "--url_openbrewer",
-        default="https://api.openbrewerydb.org/v1/breweries",
+        default="https://api.openbrewerydb.org",
         help="This is dog url for www.openbrewerydb.org"
     )
     parser.addoption(
@@ -49,25 +39,15 @@ def pytest_addoption(parser):
     )
 
 
-
 @pytest.fixture
 def url_dog(request):
     return request.config.getoption("--url_dog")
 
 
 @pytest.fixture
-def random_url_wrong1(request):
-    return request.config.getoption("--random_url_wrong1")
-
-
-@pytest.fixture
 def dog_list_url(request):
     return request.config.getoption("--dog_list_url")
 
-
-@pytest.fixture
-def dog_list_url_wrong1(request):
-    return request.config.getoption("--dog_list_url_wrong1")
 
 
 #for https://www.openbrewerydb.org/

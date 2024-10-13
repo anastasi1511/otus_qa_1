@@ -1,25 +1,33 @@
 import pytest
 from lesson6_api.part1.conftest import message_in_dog_list
 import requests
+from dogceo import DogCeo
+
 
 @pytest.mark.parametrize(
-    "code",
+    "add_url, code",
     [
-        200
+        ("/breeds/image/random", 200),
+        ("/breed/hound/list", 200)
     ],
-    ids=["code success"]
+    ids=["random dog url", "list of dogs url"]
 )
-def test_dog_code200_positive(url_dog, dog_list_url, code):
-    assert requests.get(url_dog).status_code == code
+def test_dog_code200_positive(url_dog, add_url, code):
+    response = DogCeo(url_dog).get_response(add_url)
+    assert response.status_code == code
+
+
+@pytest.mark.parametrize("add_url, code", [("/breeds/image/random", 200),])
+def test_dog_massage_text_positive(url_dog, add_url, code):
+    response = DogCeo(url_dog).get_response(add_url)
+    assert response.status_code == code
+    assert 'message' in response.text
+
+
+def test_list_dogs_positive(dog_list_url, code=200):
     assert requests.get(dog_list_url).status_code == code
-
-
-def test_dog_massage_text_positive(url_dog):
-    assert 'message' in requests.get(url_dog).text
-
-
-def test_list_dogs_positive(dog_list_url):
-    assert message_in_dog_list == requests.get(dog_list_url).json().get("message")
+    assert set(message_in_dog_list) == set(requests.get(dog_list_url).json().get("message"))
+    assert len(message_in_dog_list) == len(requests.get(dog_list_url).json().get("message"))
 
 
 def test_dog_message_negative(dog_list_url):
@@ -29,13 +37,15 @@ def test_dog_message_negative(dog_list_url):
 
 
 @pytest.mark.parametrize(
-    "code",
+    "url, add_url, code",
     [
-        404
+        ("https://dog.ceo/api", "/breeds/image/rando", 404),
+        ("https://dog.ceo/api", "/breed/list", 404)
     ],
-    ids=["wrong url"]
+    ids=["wrong random dog url", "wrong list of dogs url"]
 )
-def test_dog_code_negative(random_url_wrong1, dog_list_url_wrong1, dog_list_url, code):
-    assert requests.get(random_url_wrong1).status_code == code
-    assert requests.get(dog_list_url_wrong1).status_code == code
+def test_dog_code_negative(url, add_url, code):
+    response = DogCeo(url).get_response(add_url)
+    assert response.status_code == code
+
 
