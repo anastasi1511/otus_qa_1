@@ -7,6 +7,8 @@ data = {
     ]
 }
 
+
+
 with open("example.json", "a") as f:
     json.dump(data, f, indent=4)
 
